@@ -9,6 +9,8 @@ package models
 	{
 		public function PlayerModel()
 		{
+			mItemList = [mStrategy, mProduct, mSkill, mBusiness]
+			
 		}
 		
 		
@@ -37,6 +39,9 @@ package models
 		
 		public function get money() : IntProperty { return mMoney }
 		
+		public function get itemList():Array { return mItemList }
+		
+		public function get levelList():Array { return mLevelList }
 		
 		
 		public function initialize( data:Object = null ):void
@@ -75,7 +80,7 @@ package models
 		
 		public function getUserDataPrompt():String
 		{
-			return PlayerManager.pathUserDataB[PlayerManager.pathUserData[this.path.index]]
+			return PlayerManager.pathUserDataB[PlayerManager.pathUserData[this.path.index]] + '(' + this.path.index + ')'
 		}
 		
 		public function getData():Object
@@ -127,6 +132,11 @@ package models
 		
 		private var mBusiness:IntProperty = new IntProperty(3)
 		
+		private var mItemList:Array = []
+			
+		private var mLevelList:Array = [0,0,0,0]
+			
 		private var mMoney:IntProperty = new IntProperty(100000)
+	
 	}
 }

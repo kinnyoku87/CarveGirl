@@ -28,7 +28,7 @@ package states
 		public static const STOP:String = 'stop'
 		
 		
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			this.initModel()
 			this.initScene()
@@ -74,7 +74,7 @@ package states
 			mContent.addElement(img)
 			
 			// 更新视域
-			if(mViewport.seek(mPlayer.x, mPlayer.y, Config.VIEWPORT_WIDTH / 2, Config.VIEWPORT_HEIGHT))
+			if(mViewport.seek(mPlayer.x, mPlayer.y, Config.VIEWPORT_WIDTH / 2, Config.VIEWPORT_HEIGHT / 2))
 			{
 				mContent.move(mViewport.contentX, mViewport.contentY)
 			}
@@ -158,7 +158,6 @@ package states
 				}
 					
 			}})
-				//physics2D:{velocity:getRandom(80, 380), angle:getRandom(245, 295), gravity:400}, delay:delay
 		}
 		
 		private function updateViewport():void

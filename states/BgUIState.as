@@ -7,7 +7,7 @@ package states
 	
 	public class BgUIState extends UIState
 	{
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			var img:ImagePuppet
 			

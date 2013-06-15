@@ -34,7 +34,7 @@ package states
 		
 		public static var mLoaded:Boolean
 		
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			if(!mLoaded)
 			{
@@ -78,7 +78,7 @@ package states
 			})
 				
 			this.fusion.x = DespairUI.screenWidth - (80 + this.fusion.width)//) * DespairUI.pixelRatio
-			this.fusion.y = 40 * DespairUI.pixelRatio
+			this.fusion.y = 40
 			
 			mWrapRange = new RangeWrapProperty(1,1,6.999)
 			mWrapRange.binding(function():void

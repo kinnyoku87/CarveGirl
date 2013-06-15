@@ -26,7 +26,7 @@ package states
 	public class PropertyUIState extends UIState
 	{
 
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.left)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
 		}
@@ -125,10 +125,11 @@ package states
 				Logger.reportMessage('Command', 'back to main...')
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 				DespairUI.killAllPanels()
+				PlayerManager.getInstance().player.path.gotoNodeAt(0)
 				DespairUI.getPanel('Start').popup()
 			})
 				
-			cb = new CheckBox('leftSound')
+			cb = new CheckBox('leftSound', !SfxManager.getInstance().enabled)
 			mFusionB.addElement(cb, 297.6, 25.85)
 			cb.addEventListener(Event.CHANGE, function(e:Event):void
 			{

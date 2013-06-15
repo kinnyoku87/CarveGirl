@@ -25,7 +25,7 @@ package states
 			super();
 		}
 		
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			var doc:DisplayObjectContainerPuppet
 			var title:MovieClip
@@ -48,8 +48,8 @@ package states
 			this.fusion.addElement(btn, 227.55, 451.25)
 			btn.addEventListener(ManipulateEvent.CLICK, __onClose)
 			
-			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2// / DespairUI.pixelRatio
-			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2 /// DespairUI.pixelRatio
+			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2
+			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2
 					
 		}
 		
@@ -58,7 +58,7 @@ package states
 			SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			//CookieManager.flush()
 			DespairUI.getPanel('Introduce').close()
-			DespairUI.getPanel('Dice').popup(-1,false,false)
+			PlayerManager.getInstance().nextRound()
 		}
 		
 	}

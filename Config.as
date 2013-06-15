@@ -20,6 +20,8 @@ package
 		public static const HORIZ_GAP:Number = 400
 			
 		public static const VERTI_GAP:Number = 300
+			
+		public static const MAX_ROUND:int = 12
 
 	}
 }

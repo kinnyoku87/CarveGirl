@@ -30,7 +30,7 @@ package states
 	{
 		public static var mLoaded:Boolean
 		
-		override public function enter():void
+		override public function enter(stateArgs:Array):void
 		{
 			if(!mLoaded)
 			{

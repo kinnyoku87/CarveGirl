@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<!-- 儿童 -->
+	<child>
+		<low>
+			<product>4</product>
+			<skill>4</skill>
+			<money>10000</money>
+		</low>
+		<medium>
+			<product>16</product>
+			<skill>16</skill>
+			<money>80000</money>
+		</medium>
+		<high>
+			<product>36</product>
+			<skill>24</skill>
+			<money>200000</money>
+		</high>
+	</child>
+	
+	<!-- 青年 -->
+	<young>
+		<low>
+			<product>4</product>
+			<business>9</business>
+			<money>20000</money>
+		</low>
+		<medium>
+			<product>16</product>
+			<skill>24</skill>
+			<money>100000</money>
+		</medium>
+		<high>
+			<product>36</product>
+			<business>48</business>
+			<money>300000</money>
+		</high>
+	</young>
+	
+	<!-- 中年 -->
+	<grown>
+		<low>
+			<product>12</product>
+			<business>4</business>
+			<money>30000</money>
+		</low>
+		<medium>
+			<product>24</product>
+			<business>24</business>
+			<money>120000</money>
+		</medium>
+		<high>
+			<product>48</product>
+			<skill>36</skill>
+			<money>350000</money>
+		</high>
+	</grown>
+	
+	<!-- 老年 -->
+	<senile>
+		<low>
+			<product>12</product>
+			<skill>4</skill>
+			<money>10000</money>
+		</low>
+		<medium>
+			<product>36</product>
+			<business>16</business>
+			<money>100000</money>
+		</medium>
+		<high>
+			<product>60</product>
+			<skill>24</skill>
+			<money>350000</money>
+		</high>
+	</senile>
+</data>
