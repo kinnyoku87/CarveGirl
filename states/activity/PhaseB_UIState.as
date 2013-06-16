@@ -1,13 +1,20 @@
 package states.activity
 {
 	import flash.display.MovieClip;
+	import flash.events.Event;
 	
+	import carveGirlAssets.SWFAssets;
 	import carveGirlAssets.SoundAssets;
 	
+	import models.InvestModel;
 	import models.PlayerManager;
 	
 	import org.despair2D.media.SfxManager;
+	import org.despair2D.model.IntProperty;
+	import org.despair2D.resource.LoaderManager;
 	import org.despair2D.ui.Button;
+	import org.despair2D.ui.ButtonType;
+	import org.despair2D.ui.CheckBox;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
 	import org.despair2D.ui.events.ManipulateEvent;
@@ -16,67 +23,65 @@ package states.activity
 	import org.despair2D.utils.MathUtil;
 	import org.despair2D.utils.getInstance;
 	
-	public class UserF_UIState extends UIState
+	public class PhaseB_UIState extends UIState
 	{
-		public function UserF_UIState()
+		public function PhaseB_UIState()
 		{
 			super();
 		}
 		
 		override public function enter():void
 		{
-			mData = stateArgs[0]
-			mMoney = stateArgs[1]
-			
 			var doc:DisplayObjectContainerPuppet
-			var btn:Button
 			var mc:MovieClip
-			var l:int, i:int, count:int
+			var btn:Button
+			var index:int
+			var R:int
+			var model:InvestModel
 			
+			model = stateArgs[0]
 			doc = new DisplayObjectContainerPuppet()
-			mc = getInstance('user_panel_F')
+			mc = getInstance('phase_panel_B') as MovieClip
 			doc.addChild(mc)
-			
-			mc.title.gotoAndStop(4 - stateArgs[3])
-			mc.userAge.gotoAndStop(4 - stateArgs[3])
-			mc.userLevel.gotoAndStop(1 + stateArgs[2])
 			this.fusion.addElement(doc)
-			
-			btn = new Button('user_close_btn')
-			this.fusion.addElement(btn, 651.35, 2.5)
+			mc.desc.text = model.desc
+			mc.txt.text = model.money.toString()
+				
+			btn = new Button('phase_ok_btn')
+			this.fusion.addElement(btn, 128.5, 270.15)
 			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
-				DespairUI.getPanel('UserF').close()
+				DespairUI.getPanel('PhaseB').close()
 				PlayerManager.getInstance().nextRound()
 			})
 			
-			btn = new Button('user_ok_btn')
-			this.fusion.addElement(btn, 479, 311.05)
+			btn = new Button('phase_cancel_btn')
+			this.fusion.addElement(btn, 322.4, 270.15)
 			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
-				DespairUI.getPanel('UserF').close()
-				PlayerManager.getInstance().nextRound()
+				DespairUI.getPanel('PhaseB').close()
+				PlayerManager.getInstance().nextRound(true)
 			})
-			
-			this.fusion.x = (DespairUI.screenWidth - mc.width) / 2
-			this.fusion.y = (DespairUI.screenHeight - mc.height) / 2
+				
+			PlayerManager.getInstance().player.money.value += model.money
+				
+			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2
+			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2
 		}
 		
 		override public function exit():void
 		{
-			mData = null
+			
 		}
 		
-		private var mData:Array
-		
-		private var mMoney:int
 	}
 }
+

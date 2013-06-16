@@ -27,30 +27,10 @@ package states
 	
 	public class DiceUIState extends UIState
 	{
-		public function DiceUIState()
-		{
-			super();
-		}
 		
-		public static var mLoaded:Boolean
-		
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
-			if(!mLoaded)
-			{
-				LoaderManager.getInstance().getBytesLoader(new (SWFAssets.dice)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-			}
-			else
-			{
-				__onAssetsLoaded(null)
-			}
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
-		{
-			DespairUI.addMovieClipButtonData('dice_go', 'dice_go', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			mLoaded = true
-				
+			
 			var doc:DisplayObjectContainerPuppet
 			var mc:MovieClip
 			var btn:Button

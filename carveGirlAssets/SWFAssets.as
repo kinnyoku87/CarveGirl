@@ -28,5 +28,8 @@ package carveGirlAssets
 		
 		[Embed(source="swf/activity/coffee.swf",mimeType = "application/octet-stream")] 
 		public static var coffee:Class
+		
+		[Embed(source="swf/activity/phase.swf",mimeType = "application/octet-stream")] 
+		public static var phase:Class
 	}
 }

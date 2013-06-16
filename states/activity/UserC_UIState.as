@@ -2,8 +2,11 @@ package states.activity
 {
 	import flash.display.MovieClip;
 	
+	import carveGirlAssets.SoundAssets;
+	
 	import models.PlayerManager;
 	
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
@@ -18,7 +21,7 @@ package states.activity
 			super();
 		}
 		
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
 			mData = stateArgs[0]
 			mMoney = stateArgs[1]
@@ -39,6 +42,10 @@ package states.activity
 			
 			btn = new Button('user_close_btn')
 			this.fusion.addElement(btn, 651.35, 2.5)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('UserC').close()
@@ -47,6 +54,10 @@ package states.activity
 			
 			btn = new Button('user_interview_btn')
 			this.fusion.addElement(btn, 220, 311.3)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('UserC').close()

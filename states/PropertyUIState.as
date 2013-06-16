@@ -26,21 +26,12 @@ package states
 	public class PropertyUIState extends UIState
 	{
 
-		override public function enter(stateArgs:Array):void
-		{
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.left)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
+		override public function enter():void
 		{
 			var doc:DisplayObjectContainerPuppet
 			
 			this.fusion.spaceHeight = DespairUI.screenHeight// * DespairUI.pixelRatio
 			
-			DespairUI.addMovieClipButtonData('leftCheckBox', 'leftCheckBox', ButtonType.CHECKBOX | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('leftSound', 'leftSound', ButtonType.CHECKBOX | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('leftBackToMain', 'leftBackToMain', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('leftTakeBack', 'leftTakeBack', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 			
 			doc = new DisplayObjectContainerPuppet()
 			mc = getInstance('leftPanelA') as MovieClip
@@ -64,9 +55,12 @@ package states
 			FA.addElement(doc)
 				
 			checkBox = new CheckBox('leftCheckBox')
-			checkBox.addEventListener(Event.CHANGE,function():void
+			checkBox.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
+			checkBox.addEventListener(Event.CHANGE,function():void
+			{
 				if(checkBox.selected)
 				{
 					doc.visible = false
@@ -120,10 +114,13 @@ package states
 				
 			btn = new Button('leftBackToMain')
 			mFusionB.addElement(btn, 138.4, 25.85)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				Logger.reportMessage('Command', 'back to main...')
-				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 				DespairUI.killAllPanels()
 				PlayerManager.getInstance().player.path.gotoNodeAt(0)
 				DespairUI.getPanel('Start').popup()
@@ -150,6 +147,10 @@ package states
 				
 			btn = new Button('leftTakeBack')
 			mFusionB.addElement(btn, 603.2, 25.9)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				checkBox.selected = !checkBox.selected

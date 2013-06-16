@@ -14,5 +14,8 @@ package carveGirlAssets
 		
 		[Embed(source="sounds/bg.mp3")] 
 		public static var SN_bg:Class
+		
+//		[Embed(source="sounds/popup.wav")] 
+//		public static var SN_popup:Class
 	}
 }

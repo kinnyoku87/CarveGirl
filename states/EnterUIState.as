@@ -9,11 +9,13 @@ package states
 	import flash.events.FocusEvent;
 	
 	import carveGirlAssets.SWFAssets;
+	import carveGirlAssets.SoundAssets;
 	
 	import models.PlayerManager;
 	
 	import org.despair2D.Despair;
 	import org.despair2D.debug.Logger;
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.resource.LoaderManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.ButtonType;
@@ -28,45 +30,26 @@ package states
 	
 	public class EnterUIState extends UIState
 	{
-		public static var mLoaded:Boolean
-		
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
-			if(!mLoaded)
-			{
-				LoaderManager.getInstance().getBytesLoader(new (SWFAssets.enter)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-			}
-			else
-			{
-				__onAssetsLoaded(null)
-			}
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
-		{
-			//trace('start')
-			mLoaded = true
 			var doc:DisplayObjectContainerPuppet
 			var title:MovieClip
 			var btn:Button
 			var checkBoxA:CheckBox, checkBoxB:CheckBox
 			var input:InputTextPuppet
 			
-			DespairUI.addMovieClipButtonData('SWF_enter_heroBtn','SWF_enter_heroBtn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('SWF_enter_startBtn','SWF_enter_startBtn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('SWF_enter_okBtn','SWF_enter_okBtn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			DespairUI.addMovieClipButtonData('SWF_enter_checkBox','SWF_enter_checkBox',ButtonType.CHECKBOX | ButtonType.LEAVE_LEAVE)
-
 			doc = new DisplayObjectContainerPuppet
 			
 			mBg = getInstance('SWF_enter_BgA') as MovieClip
 			doc.addChild(mBg)
 			this.fusion.addElement(doc)
 				
+			PlayerManager.getInstance().player.sex = 1
 			checkBoxA = new CheckBox('SWF_enter_checkBox', true)
 			this.fusion.addElement(checkBoxA, 326, 205)
 			checkBoxA.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 				checkBoxB.selected = !checkBoxA.selected
 				checkBoxB.interactive = true
 				checkBoxA.interactive = false
@@ -78,6 +61,7 @@ package states
 			this.fusion.addElement(checkBoxB, 490, 205)
 			checkBoxB.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 				checkBoxA.selected = !checkBoxB.selected
 				checkBoxB.interactive = false
 				checkBoxA.interactive = true
@@ -102,6 +86,10 @@ package states
 			btn.scaleX = 292 / btn.width
 			btn.scaleY = 60 / btn.height
 			this.fusion.addElement(btn, 195.3, 529.9)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				if(input.text == "" || input.text == null)
@@ -122,6 +110,10 @@ package states
 			
 			btn = new Button('SWF_enter_heroBtn')
 			this.fusion.addElement(btn, 523.75, 529.9)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			
 			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2 /// DespairUI.pixelRatio
 			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2 /// DespairUI.pixelRatio

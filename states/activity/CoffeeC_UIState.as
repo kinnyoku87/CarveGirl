@@ -25,36 +25,11 @@ package states.activity
 	
 	public class CoffeeC_UIState extends UIState
 	{
-		public function CoffeeC_UIState()
-		{
-			super();
-		}
 
-		public static var mLoaded:Boolean
-			
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
 			mStateArgs = stateArgs
-			if(!mLoaded)
-			{
-				LoaderManager.getInstance().getBytesLoader(new (SWFAssets.coffee)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-			}
-			else
-			{
-				__onAssetsLoaded(null)
-			}
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
-		{
-			DespairUI.addMovieClipButtonData('coffee_btn_A', 'coffee_btn_A')
-			DespairUI.addMovieClipButtonData('coffee_btn_B', 'coffee_btn_B')
-			DespairUI.addMovieClipButtonData('coffee_btn_C', 'coffee_btn_C')
-			DespairUI.addMovieClipButtonData('coffee_ok_btn', 'coffee_ok_btn')
-			DespairUI.addMovieClipButtonData('coffee_send_btn', 'coffee_send_btn')
-			DespairUI.addMovieClipButtonData('coffee_close_btn', 'coffee_close_btn')
-			DespairUI.addMovieClipButtonData('coffee_checkBox', 'coffee_checkBox',ButtonType.CHECKBOX | ButtonType.LEAVE_LEAVE)
-			mLoaded = true
+			
 			var doc:DisplayObjectContainerPuppet
 			var mc:MovieClip
 			var btn:Button

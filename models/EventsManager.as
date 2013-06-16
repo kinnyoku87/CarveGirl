@@ -149,12 +149,25 @@ package models
 				
 			if(item is EventModel)
 			{
-				DespairUI.getPanel('Events').popup(-1,false,[item])
+				DespairUI.getPanel('Events').popup(-1,false,[item, true])
 			}
 			else if(item is InvestModel)
 			{
-				trace(item)
+				if((item as InvestModel).money > 0)
+				{
+					DespairUI.getPanel('PhaseB').popup(-1,false,[item])
+				}
+				else
+				{
+					DespairUI.getPanel('PhaseA').popup(-1,false,[item])
+				}
 			}
+			else
+			{
+				DespairUI.getPanel('Dice').popup(-1,false)
+			}
+			
+			Logger.reportMessage('PHASE', '获取Phase事件，id(' + mCurrPhase + ')')
 		}
 		
 		

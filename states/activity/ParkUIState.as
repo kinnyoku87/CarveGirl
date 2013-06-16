@@ -4,9 +4,11 @@ package states.activity
 	import flash.events.Event;
 	
 	import carveGirlAssets.SWFAssets;
+	import carveGirlAssets.SoundAssets;
 	
 	import models.PlayerManager;
 	
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.model.IntProperty;
 	import org.despair2D.resource.LoaderManager;
 	import org.despair2D.ui.Button;
@@ -21,32 +23,9 @@ package states.activity
 	
 	public class ParkUIState extends UIState
 	{
-		public function ParkUIState()
+
+		override public function enter():void
 		{
-			super();
-		}
-		
-		
-		public static var mLoaded:Boolean
-		
-		override public function enter(stateArgs:Array):void
-		{
-			if(!mLoaded)
-			{
-				LoaderManager.getInstance().getBytesLoader(new (SWFAssets.park)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-			}
-			else
-			{
-				__onAssetsLoaded(null)
-			}
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
-		{
-			DespairUI.addMovieClipButtonData('park_ok_btn', 'park_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			mLoaded = true
-			
-			
 			var doc:DisplayObjectContainerPuppet
 			var mc:MovieClip
 			var btn:Button
@@ -60,6 +39,10 @@ package states.activity
 				
 			btn = new Button('park_ok_btn')
 			this.fusion.addElement(btn, 80, 240)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('Park').close()

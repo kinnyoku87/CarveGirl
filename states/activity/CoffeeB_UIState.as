@@ -5,8 +5,11 @@ package states.activity
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
+	import carveGirlAssets.SoundAssets;
+	
 	import models.PlayerManager;
 	
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
@@ -23,10 +26,8 @@ package states.activity
 			super();
 		}
 		
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
-			DespairUI.addMovieClipButtonData('coffee_item_btn', 'coffee_item_btn')
-			
 			var doc:DisplayObjectContainerPuppet
 			var mc:MovieClip
 			var btn:Button
@@ -45,6 +46,10 @@ package states.activity
 			label = new LabelPuppet(stateArgs[0][0][0])
 			label.textField.setTextFormat(css)
 			this.fusion.addElement(label, 0,0,SpaceType.A_HORIZ_MIDDLE | SpaceType.A_VERTI_MIDDLE)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				propertyChange()
@@ -57,6 +62,10 @@ package states.activity
 			label = new LabelPuppet(stateArgs[0][1][0])
 			label.textField.setTextFormat(css)
 			this.fusion.addElement(label, 0,0,SpaceType.A_HORIZ_MIDDLE | SpaceType.A_VERTI_MIDDLE)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				propertyChange()
@@ -69,6 +78,10 @@ package states.activity
 			label = new LabelPuppet(stateArgs[0][2][0])
 			label.textField.setTextFormat(css)
 			this.fusion.addElement(label, 0,0,SpaceType.A_HORIZ_MIDDLE | SpaceType.A_VERTI_MIDDLE)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				propertyChange()

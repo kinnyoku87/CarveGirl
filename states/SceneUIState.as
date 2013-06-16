@@ -28,7 +28,7 @@ package states
 		public static const STOP:String = 'stop'
 		
 		
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
 			this.initModel()
 			this.initScene()

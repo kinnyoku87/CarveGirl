@@ -6,6 +6,9 @@ package carveGirlAssets
 		{
 		}
 		
+		[Embed(source="images/scene/loading.png")]
+		public static var IMG_loading:Class
+		
 		// Scene
 		[Embed(source="images/scene/map-bottom.png")]
 		public static var mapBottom:Class

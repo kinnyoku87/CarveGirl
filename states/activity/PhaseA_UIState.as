@@ -6,6 +6,7 @@ package states.activity
 	import carveGirlAssets.SWFAssets;
 	import carveGirlAssets.SoundAssets;
 	
+	import models.InvestModel;
 	import models.PlayerManager;
 	
 	import org.despair2D.media.SfxManager;
@@ -22,13 +23,9 @@ package states.activity
 	import org.despair2D.utils.MathUtil;
 	import org.despair2D.utils.getInstance;
 	
-	public class CoffeeD_UIState extends UIState
+	public class PhaseA_UIState extends UIState
 	{
-		public function CoffeeD_UIState()
-		{
-			super();
-		}
-		
+
 		override public function enter():void
 		{
 			var doc:DisplayObjectContainerPuppet
@@ -36,39 +33,34 @@ package states.activity
 			var btn:Button
 			var index:int
 			var R:int
-			var checkBox:CheckBox
+			var model:InvestModel
 			
+			model = stateArgs[0]
 			doc = new DisplayObjectContainerPuppet()
-			mc = getInstance('coffee_panel_D') as MovieClip
+			mc = getInstance('phase_panel_A') as MovieClip
 			doc.addChild(mc)
 			this.fusion.addElement(doc)
-			
-			checkBox = new CheckBox('coffee_checkBox')
-			this.fusion.addElement(checkBox, 79.5, 439)
-			checkBox.addEventListener(Event.CHANGE, function(e:ManipulateEvent):void
+			mc.desc.text = model.desc
+			if(model.money < -0)
 			{
-				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
-			})
-			
-			btn = new Button('coffee_close_btn')
-			this.fusion.addElement(btn, 677.5, 30.45)
+				mc.title.gotoAndStop(2)
+			}
+			else
+			{
+				mc.title.gotoAndStop(1)
+			}
+			btn = new Button('phase_ok_btn')
+			this.fusion.addElement(btn, 226, 277.85)
 			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
-				DespairUI.getPanel('CoffeeD').close()
-				PlayerManager.getInstance().nextRound()
+				DespairUI.getPanel('PhaseA').close()
+				PlayerManager.getInstance().nextRound(true)
 			})
 			
-			btn = new Button('coffee_send_btn')
-			this.fusion.addElement(btn, 208.4, 508.1)
-			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
-			{
-				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
-			})
-				
 			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2
 			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2
 		}

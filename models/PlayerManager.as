@@ -3,6 +3,7 @@ package models
 	import carveGirlAssets.DataAssets;
 	
 	import org.despair2D.Observer;
+	import org.despair2D.debug.Logger;
 	import org.despair2D.model.IntProperty;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.events.PanelEvent;
@@ -17,8 +18,6 @@ package models
 		public function PlayerManager()
 		{
 			mPlayer = new PlayerModel
-			mNextRoundObserver = new Observer()
-			mNextRoundObserver.addListener(onNextRound)
 			this.initializeUserData()
 			this.initializeCoffee()
 			DespairUI.getPanel('Scene').addEventListener(SceneUIState.STOP, __onScenePlayerStop)
@@ -37,6 +36,9 @@ package models
 												1, 3, 6, 2, 4, 5, 1, 3, 6, 2,
 												4, 6, 1, 3, 7, 4, 2, 1, 6, 2,
 												3, 5, 4, 1, 7, 6, 2, 4]
+		// 阶段性事件
+		public static const PHASE_INTERVAL:int = 8
+		
 		
 		public static const pathUserDataB:Array = ['起点','儿童用户','青年用户','中年用户','老年用户','咖啡厅','事件','公园']
 			
@@ -53,9 +55,25 @@ package models
 			return mPlayer
 		}
 		
-		public function nextRound():void
+		public function nextRound(direct:Boolean = false):void
 		{
-			mNextRoundObserver.execute()
+			if(direct)
+			{
+				DespairUI.getPanel('Dice').popup(-1,false)
+			}
+			else
+			{
+				++mMotionCount
+				Logger.reportMessage('numPhase', '步数' + mMotionCount)
+				if((mMotionCount % PHASE_INTERVAL) == 0)
+				{
+					EventsManager.getInstance().startPhaseEvent()
+				}
+				else
+				{
+					DespairUI.getPanel('Dice').popup(-1,false)
+				}
+			}
 		}
 		
 		private function initializeUserData():void
@@ -118,7 +136,7 @@ package models
 		
 		private var mCoffeeInfoList:Array = []
 		
-		private var mNextRoundObserver:Observer
+		private var mMotionCount:int
 		
 		
 		///////////////////////////////////////////////////////////////
@@ -225,11 +243,6 @@ package models
 			{
 				DespairUI.getPanel('UserB').popup(-1,false,[[strategy, product, skill, business], money, level, index])
 			}
-		}
-		
-		private function onNextRound():void
-		{
-			DespairUI.getPanel('Dice').popup(-1,false)
 		}
 		
 	}

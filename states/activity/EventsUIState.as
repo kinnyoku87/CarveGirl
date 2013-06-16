@@ -4,11 +4,13 @@ package states.activity
 	import flash.events.Event;
 	
 	import carveGirlAssets.SWFAssets;
+	import carveGirlAssets.SoundAssets;
 	
 	import models.EventModel;
 	import models.EventsManager;
 	import models.PlayerManager;
 	
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.resource.LoaderManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.ButtonType;
@@ -37,24 +39,10 @@ package states.activity
 			
 			
 		// []
-		override public function enter(stateArgs:Array):void
+		override public function enter():void
 		{
 			mEventModel = stateArgs[0]
-			if(!mLoaded)
-			{
-				LoaderManager.getInstance().getBytesLoader(new (SWFAssets.events)).addEventListener(Event.COMPLETE, __onAssetsLoaded)
-			}
-			else
-			{
-				__onAssetsLoaded(null)
-			}
-		}
-		
-		private function __onAssetsLoaded(e:Event):void
-		{
-			DespairUI.addMovieClipButtonData('events_ok_btn', 'events_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
-			mLoaded = true
-
+			mDirect = stateArgs[1]
 			
 			var doc:DisplayObjectContainerPuppet
 			var mc:MovieClip
@@ -69,10 +57,14 @@ package states.activity
 				
 			btn = new Button('events_ok_btn')
 			this.fusion.addElement(btn, 226, 445.45)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('Events').close()
-				PlayerManager.getInstance().nextRound()
+				PlayerManager.getInstance().nextRound(mDirect)
 				
 				// debug !!
 //				DespairUI.getPanel('Events').popup(-1,false, [EventsManager.getInstance().getEventModel()])
@@ -123,6 +115,8 @@ package states.activity
 		private var mEventModel:EventModel
 		
 		private var mCount:int
+		
+		private var mDirect:Boolean
 			
 		
 		override public function exit():void
