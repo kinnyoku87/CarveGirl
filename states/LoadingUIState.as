@@ -1,18 +1,12 @@
 package states
 {
-	import flash.events.Event;
-	
 	import carveGirlAssets.DataAssets;
 	import carveGirlAssets.ImgAssets;
-	import carveGirlAssets.SWFAssets;
 	
 	import models.EventsManager;
 	
-	import org.despair2D.Despair;
 	import org.despair2D.control.DelayManager;
-	import org.despair2D.debug.Logger;
-	import org.despair2D.resource.ILoader;
-	import org.despair2D.resource.LoaderManager;
+	import org.despair2D.control.KeyboardManager;
 	import org.despair2D.ui.ButtonType;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
@@ -23,6 +17,7 @@ package states
 	import states.activity.CoffeeC_UIState;
 	import states.activity.CoffeeD_UIState;
 	import states.activity.EventsUIState;
+	import states.activity.OriginUIState;
 	import states.activity.ParkUIState;
 	import states.activity.PhaseA_UIState;
 	import states.activity.PhaseB_UIState;
@@ -52,8 +47,10 @@ package states
 			img.embed(ImgAssets.IMG_loading, false)
 			this.fusion.addElement(img)
 				
-			this.initAssets()
+			//this.initAssets()
 			this.initModel()
+			this.initPanel()
+			this.initUIData()
 			DelayManager.getInstance().delayedCall(LOADING_TIME, function():void
 			{
 				mDelayComplete = true
@@ -64,12 +61,6 @@ package states
 			})
 		}
 		
-		private function nextUIState():void
-		{
-			DespairUI.getPanel('Loading').close()
-			DespairUI.getPanel('Start').popup()
-		}
-		
 		override public function exit():void
 		{
 			
@@ -77,7 +68,7 @@ package states
 		
 		
 		
-		private var mDelayComplete:Boolean, mLoadComplete:Boolean
+		private var mDelayComplete:Boolean, mLoadComplete:Boolean = true
 		
 		private var mTotal:int
 		
@@ -85,41 +76,101 @@ package states
 		
 		private function initModel():void
 		{
+			SWF_enter_BgA
+			SWF_enter_BgB
+			SWF_enter_checkBox
+			SWF_enter_heroBtn
+			SWF_enter_okBtn
+			SWF_enter_startBtn
+			
+			leftBackToMain
+			leftCheckBox
+			leftPanelA
+			leftPanelB
+			leftPanelC
+			leftSound
+			leftTakeBack
+			
+			SWF_start_Bg
+			SWF_start_Btn
+			SWF_start_Envelope
+			
+			dice_bg
+			dice_dice
+			dice_go
+			
+			user_close_btn
+			user_interview_btn
+			user_ok_btn
+			user_panel_A
+			user_panel_B
+			user_panel_C
+			user_panel_D
+			user_panel_E
+			user_panel_F
+			user_popularize_btn
+			
+			phase_cancel_btn
+			phase_ok_btn
+			phase_panel_A
+			phase_panel_B
+			
+			park_ok_btn
+			park_panel
+			
+			round_close_btn
+			round_ok_btn
+			round_panel_A
+			
+			events_label
+			events_ok_btn
+			events_panel_A
+			events_value_A
+			events_value_B
+			
+			coffee_btn_A
+			coffee_btn_B
+			coffee_btn_C
+			coffee_checkBox
+			coffee_close_btn
+			coffee_item_btn
+			coffee_ok_btn
+			coffee_panel_A
+			coffee_panel_B
+			coffee_panel_C
+			coffee_panel_D
+			coffee_send_btn
+			
+			
 			var data:XML = XML(new DataAssets.DATA_events)
 			EventsManager.getInstance().initializeEvents(data)
 			data = XML(new DataAssets.DATA_phase)
 			EventsManager.getInstance().initializePhase(data)
 		}
 		
-		private function initAssets():void
-		{
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.start))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.enter))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.left))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.dice))
-				
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.user))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.phase))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.coffee))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.events))
-			LoaderManager.getInstance().getBytesLoader(new (SWFAssets.park))
-				
-				
-			mTotal = LoaderManager.getInstance().totalValue
-			LoaderManager.getInstance().addCompleteListener(function():void
-			{
-				LoaderManager.getInstance().reomveCompleteListener(arguments.callee)
-				Logger.reportMessage('Command', 'Loading All Complete...', true)
-				
-				initUIData()
-				initPanel()
-				mLoadComplete = true
-				if(mDelayComplete && mLoadComplete)
-				{
-					nextUIState()
-				}
-			})
-		}
+//		private function initAssets():void
+//		{
+//			var list:Array = SWFAssets.list
+//			var l:int = list.length
+//			while(--l>-1)
+//			{
+//				LoaderManager.getInstance().getLoader(SWFAssets.path + list[l], 0, true)
+//			}
+//				
+//			LoaderManager.getInstance().addCompleteListener(function():void
+//			{
+//				LoaderManager.getInstance().reomveCompleteListener(arguments.callee)
+//				Logger.reportMessage('Command', 'Loading All Complete...', true)
+//				
+//				initUIData()
+//				initPanel()
+//				mLoadComplete = true
+//				if(mDelayComplete && mLoadComplete)
+//				{
+//					nextUIState()
+//				}
+//			})
+//		}
 		
 		private function initUIData():void
 		{
@@ -157,8 +208,11 @@ package states
 			DespairUI.addMovieClipButtonData('events_ok_btn', 'events_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 				
 			DespairUI.addMovieClipButtonData('park_ok_btn', 'park_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+				
+			DespairUI.addMovieClipButtonData('round_ok_btn', 'round_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('round_close_btn', 'round_close_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 		}
-
+		
 		private function initPanel():void
 		{
 			DespairUI.registerPanel('Start',	 StartUIState)
@@ -184,22 +238,30 @@ package states
 			DespairUI.registerPanel('CoffeeD',   CoffeeD_UIState)
 			DespairUI.registerPanel('PhaseA',    PhaseA_UIState)
 			DespairUI.registerPanel('PhaseB',    PhaseB_UIState)
-			
-			//DespairUI.getPanel('PhaseB').popup()
-			//			PlayerManager.getInstance()
-			//			DespairUI.getPanel('Events').popup(-1,false,[EventsManager.getInstance().getEventModel()])
-			
-			//			KeyboardManager.getInstance().initialize()
-			//			KeyboardManager.getInstance().getState().addPressListener('A',function():void
-			//			{
-			//				DespairUI.getPanel('Events').close()
-			//				DespairUI.getPanel('PhaseA').close()
-			//				DespairUI.getPanel('PhaseB').close()
-			//				EventsManager.getInstance().startPhaseEvent()
-			//			})
-			
+			DespairUI.registerPanel('Origin',    OriginUIState)
 		}
 		
+		private function nextUIState():void
+		{
+			DespairUI.getPanel('Loading').close()
+			DespairUI.getPanel('Start').popup()
+			
+//			DespairUI.getPanel('Origin').popup()
+			
+//			DespairUI.getPanel('PhaseB').popup()
+//			PlayerManager.getInstance()
+//			DespairUI.getPanel('Events').popup(-1,false,[EventsManager.getInstance().getEventModel()])
+
+//			KeyboardManager.getInstance().initialize()
+//			KeyboardManager.getInstance().getState().addPressListener('A',function():void
+//			{
+//				DespairUI.getPanel('Events').close()
+//				DespairUI.getPanel('PhaseA').close()
+//				DespairUI.getPanel('PhaseB').close()
+//				EventsManager.getInstance().startPhaseEvent()
+//			})
+
+		}
 		
 		
 	}

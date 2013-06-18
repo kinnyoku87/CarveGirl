@@ -7,7 +7,7 @@ package
 		}
 		
 		
-		public static const MOTION_SPEED:int = 188 // pixels per second
+		public static const MOTION_SPEED:int = 488 // pixels per second
 			
 		public static const SCENE_WIDTH:Number = 2210
 			

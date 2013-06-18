@@ -55,8 +55,10 @@ package states.activity
 			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
+				PlayerManager.getInstance().player.money.value += model.money
+				
 				DespairUI.getPanel('PhaseB').close()
-				PlayerManager.getInstance().nextRound()
+				PlayerManager.getInstance().nextRound(true)
 			})
 			
 			btn = new Button('phase_cancel_btn')
@@ -70,8 +72,6 @@ package states.activity
 				DespairUI.getPanel('PhaseB').close()
 				PlayerManager.getInstance().nextRound(true)
 			})
-				
-			PlayerManager.getInstance().player.money.value += model.money
 				
 			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2
 			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2

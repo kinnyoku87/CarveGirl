@@ -24,8 +24,8 @@ package
 			this.removeEventListener(Event.ADDED_TO_STAGE, __onAddedToStage)
 				
 			// TheMiner
-			var tm:TheMiner = new TheMiner()
-			this.addChild(tm)
+//			var tm:TheMiner = new TheMiner()
+//			this.addChild(tm)
 			
 			// despair2D初期化
 			Despair.startup(this.stage)

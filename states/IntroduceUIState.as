@@ -2,20 +2,17 @@ package states
 {
 	import flash.display.MovieClip;
 	
-	import carveGirlAssets.ImgAssets;
 	import carveGirlAssets.SoundAssets;
 	
 	import models.CookieManager;
 	import models.PlayerManager;
 	
-	import org.despair2D.Despair;
 	import org.despair2D.media.SfxManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
 	import org.despair2D.ui.events.ManipulateEvent;
 	import org.despair2D.ui.puppet.DisplayObjectContainerPuppet;
-	import org.despair2D.ui.puppet.ImagePuppet;
 	import org.despair2D.utils.getInstance;
 	
 	public class IntroduceUIState extends UIState
@@ -57,6 +54,8 @@ package states
 			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2
 			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2
 					
+			// 实时记录 !!
+			CookieManager.flush()
 		}
 		
 		private function __onClose(e:ManipulateEvent):void

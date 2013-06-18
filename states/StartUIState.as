@@ -11,10 +11,12 @@ package states
 	import carveGirlAssets.SoundAssets;
 	
 	import models.CookieManager;
+	import models.LoginManager;
 	import models.PlayerManager;
 	
 	import org.despair2D.control.CookieUtil;
 	import org.despair2D.control.ICookie;
+	import org.despair2D.control.KeyboardManager;
 	import org.despair2D.debug.Logger;
 	import org.despair2D.media.MusicManager;
 	import org.despair2D.media.SfxManager;
@@ -60,7 +62,7 @@ package states
 			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
-				nextState()
+				restart()
 			})
 				
 				
@@ -72,35 +74,42 @@ package states
 			{
 				MusicManager.getInstance().play(SoundAssets.SN_bg, 0, 0.6, true)
 			}
+			
+			
+//			KeyboardManager.getInstance().initialize()
+//			KeyboardManager.getInstance().getState().addPressListener('R',function():void
+//			{
+//				CookieManager.cookie.userData = null
+//				Logger.reportMessage('Command','削除记录...')
+//			})
+				
+			CookieManager.cookie
 		}
 		
 		override public function exit():void
 		{
 			TweenLite.killTweensOf(mBg)
 			mBg = null
+				
+			//KeyboardManager.getInstance().getState().removeAllPressListeners('R')
 		}
 		
 		private var mBg:MovieClip
 		
 		
+		private function restart() : void
+		{
+			DespairUI.getPanel('Start').close()
+			DespairUI.getPanel('Bg').popup()
+			DespairUI.getPanel('Enter').popup()
+		}
+		
 		private function nextState():void
 		{
 			DespairUI.getPanel('Start').close()
 			DespairUI.getPanel('Bg').popup()
-			
 			DespairUI.getPanel('Enter').popup()
-//			var cookie:ICookie = CookieManager.cookie
-//			if(cookie.size == 0)
-//			{
-//				DespairUI.getPanel('Enter').popup()
-//			}
-//			else
-//			{
-//				PlayerManager.getInstance().player.setData(cookie.userData)
-//				DespairUI.getPanel('Scene').popup()
-//				DespairUI.getPanel('Property').popup()
-//				DespairUI.getPanel('Dice').popup()
-//			}
+			LoginManager.autoLogin()
 		}
 	}
 }

@@ -28,6 +28,9 @@ package states
 	public class DiceUIState extends UIState
 	{
 		
+		public static const ROTATION_TIME:Number = 1
+		
+		
 		override public function enter():void
 		{
 			
@@ -93,8 +96,8 @@ package states
 			var point:int = 1
 			var R:Number = MathUtil.getRandomBetween(1200, 2400)
 			R = R - R % 360
-			TweenLite.to(mDice, 3, {rotation:R,ease:Quart.easeInOut})
-			TweenLite.to(mWrapRange, 3, {value:MathUtil.getRandomBetween(43,73),ease:Quart.easeInOut,onComplete:function():void
+			TweenLite.to(mDice, ROTATION_TIME, {rotation:R,ease:Quart.easeInOut})
+			TweenLite.to(mWrapRange, ROTATION_TIME, {value:MathUtil.getRandomBetween(43,73),ease:Quart.easeInOut,onComplete:function():void
 			{
 				Logger.reportMessage('Command', '点数: ' + int(mWrapRange.value))
 				DespairUI.getPanel('Scene').dispatchEvent(new PanelEvent(SceneUIState.GAME_START, int(mWrapRange.value)))
@@ -104,7 +107,7 @@ package states
 		
 		private function gambleComplete() : void
 		{
-			TweenLite.to(this.fusion, 0.7, {alpha:0.05, ease:Linear.easeNone, onComplete:function():void
+			TweenLite.to(this.fusion, 0.6, {alpha:0.05, ease:Linear.easeNone, onComplete:function():void
 			{
 				DespairUI.getPanel('Dice').close()
 			}})

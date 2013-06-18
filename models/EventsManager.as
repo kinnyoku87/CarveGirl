@@ -17,9 +17,6 @@ package models
 		}
 		
 		
-		public var round:int
-		
-		
 		public function initializeEvents( data:XML ) : void
 		{
 			//trace(data)
@@ -94,6 +91,7 @@ package models
 			var modelA:EnsureEventModel
 			var index:int, i:int, l:int, roundT:int
 			var list:Array
+			var round:int
 			
 			if(mNumFinishedEnsureEvents < mNumEnsureEvents)
 			{
@@ -104,8 +102,7 @@ package models
 			}
 			else
 			{
-//				
-				roundT = this.round < 2 ? 2 : this.round
+				roundT = (PlayerManager.getInstance().player.round.value < 2) ? 2 : PlayerManager.getInstance().player.round.value
 				list = []
 				l = mEventList.length
 				for(i=0;i<l;i++)

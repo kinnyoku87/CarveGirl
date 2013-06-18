@@ -45,14 +45,16 @@ package states
 			PlayerManager.getInstance().player.product.binding(__onBindingB,true)
 			PlayerManager.getInstance().player.skill.binding(__onBindingC,true)
 			PlayerManager.getInstance().player.business.binding(__onBindingD,true)
+			
 				
 			FA = new Fusion()
 			doc = new DisplayObjectContainerPuppet()
-			var mcB:MovieClip = getInstance('leftPanelB') as MovieClip	
+			mcB = getInstance('leftPanelB') as MovieClip	
 			doc.addChild(mcB)
 			mcB.playerName.text = PlayerManager.getInstance().player.name
 			mcB.year.text = PlayerManager.getInstance().player.round
 			FA.addElement(doc)
+			PlayerManager.getInstance().player.round.binding(__onBindingRound)
 				
 			checkBox = new CheckBox('leftCheckBox')
 			checkBox.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
@@ -85,7 +87,8 @@ package states
 			PlayerManager.getInstance().player.product.unbinding(__onBindingB)
 			PlayerManager.getInstance().player.skill.unbinding(__onBindingC)
 			PlayerManager.getInstance().player.business.unbinding(__onBindingD)
-			mc = null
+			PlayerManager.getInstance().player.round.unbinding(__onBindingRound)
+			mc = mcB = null
 			FA = null
 			mFusionB = null
 			checkBox = null
@@ -96,7 +99,7 @@ package states
 		private var mFusionB:Fusion
 		private var checkBox:CheckBox
 		
-		
+		private var mcB:MovieClip
 		
 		
 		private function createFusionB():void
@@ -183,6 +186,11 @@ package states
 		private function __onBindingD():void
 		{
 			mc.txtD.text = String(PlayerManager.getInstance().player.business.value)
+		}
+		
+		private function __onBindingRound():void
+		{
+			mcB.year.text = String(PlayerManager.getInstance().player.round.value)
 		}
 	}
 }

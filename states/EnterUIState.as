@@ -44,6 +44,7 @@ package states
 			doc.addChild(mBg)
 			this.fusion.addElement(doc)
 				
+			PlayerManager.getInstance().player.money.value = 100000
 			PlayerManager.getInstance().player.sex = 1
 			checkBoxA = new CheckBox('SWF_enter_checkBox', true)
 			this.fusion.addElement(checkBoxA, 326, 205)
@@ -140,6 +141,8 @@ package states
 			DespairUI.getPanel('Scene').popup()
 			DespairUI.getPanel('Property').popup()
 			DespairUI.getPanel('Introduce').popup()
+				
+//			DespairUI.getPanel('Origin').popup()
 		}
 	}
 }

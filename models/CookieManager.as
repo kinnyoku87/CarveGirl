@@ -9,20 +9,15 @@ package models
 		
 		public static function get cookie() :ICookie
 		{
-			if(!mCookie)
-			{
-				mCookie = CookieUtil.createCookie('CarveGirl')
-			}
-			
-			return mCookie
+			return mCookie ||= CookieUtil.createCookie('CarveGirl')
 		}
 		
 		public static function flush():void
 		{
-			var cookie:ICookie = CookieUtil.getCookie('CarveGirl')
-			cookie.userData = PlayerManager.getInstance().player.getData()
-			cookie.flush()
+			mCookie.userData = PlayerManager.getInstance().player.getData()
+			mCookie.flush()
 		}
+		
 		
 		private static var mCookie:ICookie
 		

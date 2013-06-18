@@ -45,7 +45,7 @@ package states.activity
 			
 			checkBox = new CheckBox('coffee_checkBox')
 			this.fusion.addElement(checkBox, 79.5, 439)
-			checkBox.addEventListener(Event.CHANGE, function(e:ManipulateEvent):void
+			checkBox.addEventListener(Event.CHANGE, function(e:Event):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			})

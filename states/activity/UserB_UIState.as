@@ -62,7 +62,7 @@ package states.activity
 				{
 					if(count == 0)
 					{
-						mc.txtA.text = '+' + value
+						mc.txtA.text = '>' + value
 						mc.itemA.gotoAndStop(i+1)
 						if(value <= PlayerManager.getInstance().player.itemList[i].value)
 						{
@@ -75,7 +75,7 @@ package states.activity
 					}
 					else if(count == 1)
 					{
-						mc.txtB.text = '+' + value
+						mc.txtB.text = '>' + value
 						mc.itemB.gotoAndStop(i+1)
 						if(value <= PlayerManager.getInstance().player.itemList[i].value)
 						{
@@ -91,7 +91,7 @@ package states.activity
 				}
 			}
 			
-			if(mMoney <= PlayerManager.getInstance().player.itemList[i].value)
+			if(mMoney < PlayerManager.getInstance().player.money.value)
 			{
 				mc.bgC.gotoAndStop(1)	
 			}

@@ -39,10 +39,11 @@ package states.activity
 			mc.title.gotoAndStop(4 - stateArgs[3])
 			mc.userAge.gotoAndStop(4 - stateArgs[3])
 			mc.userLevel.gotoAndStop(1 + stateArgs[2])
+			
 			mc.bgA.gotoAndStop(1)	
 			mc.bgB.gotoAndStop(1)	
-			mc.bgC.gotoAndStop(1)	
 			mc.txtC.text = mMoney / 10000 + 'W'
+			mc.bgC.gotoAndStop(1)	
 				
 			l = mData.length
 			for(i=0;i<l;i++)
@@ -51,12 +52,12 @@ package states.activity
 				{
 					if(count == 0)
 					{
-						mc.txtA.text = '+' + mData[i]
+						mc.txtA.text = '>' + mData[i]
 						mc.itemA.gotoAndStop(i+1)
 					}
 					else if(count == 1)
 					{
-						mc.txtB.text = '+' + mData[i]
+						mc.txtB.text = '>' + mData[i]
 						mc.itemB.gotoAndStop(i+1)
 						break
 					}

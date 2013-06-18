@@ -30,6 +30,10 @@ package states
 		
 		override public function enter():void
 		{
+			
+//			trace(PlayerManager.getInstance().player.getIncome([1,1,2,2]))
+//			trace(PlayerManager.getInstance().player.getExpenses())
+			
 			this.initModel()
 			this.initScene()
 			this.initListeners()
@@ -37,9 +41,6 @@ package states
 			
 		private function initModel():void
 		{
-			// 导入路径数据
-			PlayerManager.getInstance().player.path.fromByteArray(new (DataAssets.DATA_path))
-			PlayerManager.getInstance().player.path.looped = true
 			//trace(PlayerManager.getInstance().player.path.length)
 				
 			mViewport = new ViewportData(Config.VIEWPORT_WIDTH, Config.VIEWPORT_HEIGHT, Config.SCENE_WIDTH, Config.SCENE_Height)
@@ -106,16 +107,14 @@ package states
 		private var mOldX:Number, mOldY:Number
 		
 		private var mViewport:ViewportData
-		
-		private var mRemainStep:int
-		
+
 		
 		
 		/////////////////////////////////////////////////////////////////////////////
 		
 		private function __onGameStart(e:PanelEvent):void
 		{
-			mRemainStep = int(e.data)
+			PlayerManager.getInstance().player.remainStep = e.data ? int(e.data) : PlayerManager.getInstance().player.remainStep
 			this.startMove()
 		}
 		
@@ -148,10 +147,21 @@ package states
 					Logger.reportWarning('Command', 'Reach', '当前节点: ' + PlayerManager.getInstance().player.path.index)
 				}
 				
-				if(--mRemainStep > 0)
+				--PlayerManager.getInstance().player.remainStep
+				
+				// 判断是否为起点
+				if(PlayerManager.getInstance().player.path.index == 0)
+				{
+					PlayerManager.getInstance().player.round.value++
+					DespairUI.getPanel('Origin').popup()
+				}
+				
+				// 继续走
+				else if(PlayerManager.getInstance().player.remainStep > 0)
 				{
 					startMove()
 				}
+				
 				else
 				{
 					DespairUI.getPanel('Scene').dispatchEvent(new PanelEvent(STOP))

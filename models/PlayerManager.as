@@ -2,12 +2,12 @@ package models
 {
 	import carveGirlAssets.DataAssets;
 	
-	import org.despair2D.Observer;
 	import org.despair2D.debug.Logger;
 	import org.despair2D.model.IntProperty;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.events.PanelEvent;
 	import org.despair2D.utils.ArrayUtil;
+	import org.despair2D.utils.MathUtil;
 	import org.despair2D.utils.XMLUtil;
 	
 	import states.SceneUIState;
@@ -36,8 +36,8 @@ package models
 												1, 3, 6, 2, 4, 5, 1, 3, 6, 2,
 												4, 6, 1, 3, 7, 4, 2, 1, 6, 2,
 												3, 5, 4, 1, 7, 6, 2, 4]
-		// 阶段性事件
-		public static const PHASE_INTERVAL:int = 8
+		// 阶段性事件步数间隔
+		public static const PHASE_INTERVAL:int = 12
 		
 		
 		public static const pathUserDataB:Array = ['起点','儿童用户','青年用户','中年用户','老年用户','咖啡厅','事件','公园']
@@ -57,15 +57,20 @@ package models
 		
 		public function nextRound(direct:Boolean = false):void
 		{
+			// 实时记录 !!
+			CookieManager.flush()
+				
 			if(direct)
 			{
 				DespairUI.getPanel('Dice').popup(-1,false)
 			}
+			
+			// 判断阶段性事件
 			else
 			{
-				++mMotionCount
-				Logger.reportMessage('numPhase', '步数' + mMotionCount)
-				if((mMotionCount % PHASE_INTERVAL) == 0)
+				++mPlayer.motionCount
+				Logger.reportMessage('numPhase', '步数' + mPlayer.motionCount)
+				if((mPlayer.motionCount % PHASE_INTERVAL) == 0)
 				{
 					EventsManager.getInstance().startPhaseEvent()
 				}
@@ -130,17 +135,19 @@ package models
 		}
 
 	
+		///////////////////////////////////////////////////////////////
+		
+		
 		private var mPlayer:PlayerModel
 		
 		private var mUserDataGroupList:Array
 		
 		private var mCoffeeInfoList:Array = []
 		
-		private var mMotionCount:int
-		
 		
 		///////////////////////////////////////////////////////////////
 		
+			
 		private function __onScenePlayerStop(e:PanelEvent):void
 		{
 			trace(this.player.getUserDataPrompt())
@@ -156,6 +163,8 @@ package models
 			var code:int
 			
 //			DespairUI.getPanel('CoffeeA').popup(-1,false)
+//			return
+//			handleUserActivity(int(MathUtil.getRandomBetween(0,3)))
 //			return
 			
 			code = pathUserData[mPlayer.path.index]
@@ -191,6 +200,10 @@ package models
 			}
 		}
 		
+		// 1:儿童用户
+		// 2:青年用户
+		// 3:中年用户
+		// 4:老年用户
 		private function handleUserActivity( index:int ):void
 		{
 			var group:UserDataQroup
@@ -199,13 +212,6 @@ package models
 			
 			group = mUserDataGroupList[index]
 			level = mPlayer.levelList[index]
-			
-			// 已满级，无需推广
-			if(level >= 3)
-			{
-				DespairUI.getPanel('UserC').popup(-1,false,[null, obj.money, level, index])
-				return
-			}
 			
 			switch(level)
 			{
@@ -220,6 +226,13 @@ package models
 					break;
 				default:
 					break;
+			}
+			
+			// 已满级，无需推广
+			if(level >= 3)
+			{
+				DespairUI.getPanel('UserC').popup(-1,false,[null, 0, level, index])
+				return
 			}
 			
 			var strategy:int = obj.strategy
