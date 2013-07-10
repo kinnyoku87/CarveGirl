@@ -12,14 +12,31 @@ package models
 			return mCookie ||= CookieUtil.createCookie('CarveGirl')
 		}
 		
+		public static function get hero() : ICookie
+		{
+			return mHero ||= CookieUtil.createCookie('Hero')
+		}
+		
 		public static function flush():void
 		{
 			mCookie.userData = PlayerManager.getInstance().player.getData()
 			mCookie.flush()
 		}
 		
+		public static function flushHero():void
+		{
+			mHero.userData = PlayerManager.getInstance().heroList
+			mHero.flush()
+		}
 		
-		private static var mCookie:ICookie
+		public static function clear() : void
+		{
+			mCookie.userData = {}
+			mCookie.flush()
+		}
+		
+		
+		private static var mCookie:ICookie, mHero:ICookie
 		
 	}
 }

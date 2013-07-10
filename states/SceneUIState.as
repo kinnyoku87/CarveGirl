@@ -9,6 +9,7 @@ package states
 	import carveGirlAssets.DataAssets;
 	import carveGirlAssets.ImgAssets;
 	
+	import models.CookieManager;
 	import models.PlayerManager;
 	
 	import org.despair2D.debug.Logger;
@@ -33,6 +34,11 @@ package states
 			
 //			trace(PlayerManager.getInstance().player.getIncome([1,1,2,2]))
 //			trace(PlayerManager.getInstance().player.getExpenses())
+			
+//			CookieManager.hero.userData = [{name:'AgonyA', type:1, score:14444},
+//										{name:'AgonyB', type:1, score:744144},
+//										{name:'AgonyC', type:1, score:444433444}]
+//			CookieManager.hero.flush()
 			
 			this.initModel()
 			this.initScene()
@@ -122,6 +128,7 @@ package states
 		{
 			var node:uint
 			var dist:Number
+			var code:int
 			
 			dist = PlayerManager.getInstance().player.path.gotoNextNode()
 			
@@ -152,7 +159,6 @@ package states
 				// 判断是否为起点
 				if(PlayerManager.getInstance().player.path.index == 0)
 				{
-					PlayerManager.getInstance().player.round.value++
 					DespairUI.getPanel('Origin').popup()
 				}
 				
@@ -179,5 +185,6 @@ package states
 
 			}
 		}
+		
 	}
 }

@@ -3,20 +3,26 @@ package states
 	import carveGirlAssets.DataAssets;
 	import carveGirlAssets.ImgAssets;
 	
+	import models.CookieManager;
 	import models.EventsManager;
+	import models.PlayerManager;
 	
 	import org.despair2D.control.DelayManager;
-	import org.despair2D.control.KeyboardManager;
 	import org.despair2D.ui.ButtonType;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
 	import org.despair2D.ui.puppet.ImagePuppet;
 	
+	import states.activity.Buyout_UIState;
 	import states.activity.CoffeeA_UIState;
 	import states.activity.CoffeeB_UIState;
 	import states.activity.CoffeeC_UIState;
 	import states.activity.CoffeeD_UIState;
+	import states.activity.EndUIState;
 	import states.activity.EventsUIState;
+	import states.activity.HeroUIState;
+	import states.activity.ListingB_UIState;
+	import states.activity.ListingUIState;
 	import states.activity.OriginUIState;
 	import states.activity.ParkUIState;
 	import states.activity.PhaseA_UIState;
@@ -36,7 +42,7 @@ package states
 		}
 		
 		
-		public const LOADING_TIME:int = 3
+		public const LOADING_TIME:int = 2
 		
 		
 		override public function enter():void
@@ -51,6 +57,7 @@ package states
 			this.initModel()
 			this.initPanel()
 			this.initUIData()
+			this.initSave()
 			DelayManager.getInstance().delayedCall(LOADING_TIME, function():void
 			{
 				mDelayComplete = true
@@ -94,6 +101,7 @@ package states
 			SWF_start_Bg
 			SWF_start_Btn
 			SWF_start_Envelope
+			SWF_start_resume_Btn
 			
 			dice_bg
 			dice_dice
@@ -141,6 +149,18 @@ package states
 			coffee_panel_D
 			coffee_send_btn
 			
+			end_state
+			end_hero
+			end_heroBtn
+			end_againBtn
+			end_weiboBtn
+			end_backBtn
+			end_panelA
+			end_panelB
+			end_panelC
+			end_okBtn
+			end_cancelBtn
+			
 			
 			var data:XML = XML(new DataAssets.DATA_events)
 			EventsManager.getInstance().initializeEvents(data)
@@ -175,6 +195,7 @@ package states
 		private function initUIData():void
 		{
 			DespairUI.addMovieClipButtonData('SWF_start_Btn','SWF_start_Btn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('SWF_start_resume_Btn','SWF_start_resume_Btn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 			
 			DespairUI.addMovieClipButtonData('SWF_enter_heroBtn','SWF_enter_heroBtn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 			DespairUI.addMovieClipButtonData('SWF_enter_startBtn','SWF_enter_startBtn',ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
@@ -211,6 +232,13 @@ package states
 				
 			DespairUI.addMovieClipButtonData('round_ok_btn', 'round_ok_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 			DespairUI.addMovieClipButtonData('round_close_btn', 'round_close_btn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+				
+			DespairUI.addMovieClipButtonData('end_backBtn', 'end_backBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('end_againBtn', 'end_againBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('end_heroBtn', 'end_heroBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('end_weiboBtn', 'end_weiboBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('end_okBtn', 'end_okBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
+			DespairUI.addMovieClipButtonData('end_cancelBtn', 'end_cancelBtn', ButtonType.BUTTON | ButtonType.LEAVE_LEAVE)
 		}
 		
 		private function initPanel():void
@@ -239,6 +267,32 @@ package states
 			DespairUI.registerPanel('PhaseA',    PhaseA_UIState)
 			DespairUI.registerPanel('PhaseB',    PhaseB_UIState)
 			DespairUI.registerPanel('Origin',    OriginUIState)
+				
+			DespairUI.registerPanel('End',       EndUIState)
+			DespairUI.registerPanel('Hero',      HeroUIState)
+			DespairUI.registerPanel('Buyout',    Buyout_UIState)
+			DespairUI.registerPanel('Listing',   ListingUIState)
+			DespairUI.registerPanel('ListingB',  ListingB_UIState)
+		}
+		
+		private function initSave():void
+		{
+			var key:String
+			
+			CookieManager.cookie
+			CookieManager.hero
+				
+			//trace('hero')
+			for each(var item:* in CookieManager.hero.userData)
+			{
+				PlayerManager.getInstance().heroList.push(item)
+			}
+				
+			for(key in CookieManager.cookie.userData)
+			{
+				trace(key + ' | ' + CookieManager.cookie.userData[key])
+			}
+			
 		}
 		
 		private function nextUIState():void
@@ -246,7 +300,10 @@ package states
 			DespairUI.getPanel('Loading').close()
 			DespairUI.getPanel('Start').popup()
 			
-//			DespairUI.getPanel('Origin').popup()
+//			DespairUI.getPanel('End').popup(-1,true,[6])
+//			DespairUI.getPanel('Hero').popup(-1,true,[6])
+//			DespairUI.getPanel('Buyout').popup(-1,true,[34343])
+//			DespairUI.getPanel('ListingB').popup(-1,true)
 			
 //			DespairUI.getPanel('PhaseB').popup()
 //			PlayerManager.getInstance()

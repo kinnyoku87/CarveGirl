@@ -50,12 +50,14 @@ package states
 			title = getInstance('SWF_start_Envelope') as MovieClip
 			doc.addChild(title)
 			//title.scaleX = title.scaleY = 0.8
+			title.width = 412.15
+			title.height = 210.65
 			title.x = (DespairUI.screenWidth - title.width)/2
-			title.y = 40
+			title.y = 22.65
 			this.fusion.addElement(doc)
-				
+			
 			btn = new Button('SWF_start_Btn')
-			this.fusion.addElement(btn, (DespairUI.screenWidth - btn.width)/2, -65, SpaceType.LEFT | SpaceType.BOTTOM)
+			this.fusion.addElement(btn, (DespairUI.screenWidth - btn.width)/2, -118, SpaceType.LEFT | SpaceType.BOTTOM)
 			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
@@ -64,7 +66,24 @@ package states
 			{
 				restart()
 			})
+			btn = new Button('SWF_start_resume_Btn')
+			this.fusion.addElement(btn, (DespairUI.screenWidth - btn.width)/2, -35, SpaceType.LEFT | SpaceType.BOTTOM)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
+			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
+			{
+				trace('resume')
+				PlayerManager.getInstance().player.setData(CookieManager.cookie.userData)
 				
+				for(var k:* in CookieManager.cookie.userData)
+				{
+					Logger.reportMessage(k, CookieManager.cookie.userData[k])
+				}
+				
+				onResume()
+			})	
 				
 			TweenPlugin.activate([BlurFilterPlugin])
 			TweenLite.to(mBg, 4.0, {blurFilter:{blurX:15, blurY:15}})
@@ -82,8 +101,6 @@ package states
 //				CookieManager.cookie.userData = null
 //				Logger.reportMessage('Command','削除记录...')
 //			})
-				
-			CookieManager.cookie
 		}
 		
 		override public function exit():void
@@ -104,12 +121,24 @@ package states
 			DespairUI.getPanel('Enter').popup()
 		}
 		
-		private function nextState():void
+		private function onResume():void
 		{
-			DespairUI.getPanel('Start').close()
-			DespairUI.getPanel('Bg').popup()
-			DespairUI.getPanel('Enter').popup()
-			LoginManager.autoLogin()
+			if(CookieManager.cookie.size > 0)
+			{
+				DespairUI.getPanel('Start').close()
+				DespairUI.getPanel('Bg').popup()
+				DespairUI.getPanel('Scene').popup()
+				DespairUI.getPanel('Property').popup()
+				DespairUI.getPanel('Dice').popup()
+			}
 		}
+		
+//		private function nextState():void
+//		{
+//			DespairUI.getPanel('Start').close()
+//			DespairUI.getPanel('Bg').popup()
+//			DespairUI.getPanel('Enter').popup()
+//			//LoginManager.autoLogin()
+//		}
 	}
 }

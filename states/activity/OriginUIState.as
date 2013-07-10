@@ -4,6 +4,7 @@ package states.activity
 	
 	import carveGirlAssets.SoundAssets;
 	
+	import models.CookieManager;
 	import models.InvestModel;
 	import models.PlayerManager;
 	
@@ -123,6 +124,25 @@ package states.activity
 		private function onContinue():void
 		{
 			DespairUI.getPanel('Origin').close()
+				
+			var code:int
+			
+			code = PlayerManager.getInstance().player.checkGameOver()
+			if(code < 0)
+			{
+				PlayerManager.getInstance().player.round.value++
+				if(code == -2)
+				{
+					return
+				}
+			}
+		
+			else
+			{
+				DespairUI.getPanel('End').popup(-1,true,[code])
+				CookieManager.clear()
+				return
+			}
 			if(PlayerManager.getInstance().player.remainStep > 0)
 			{
 				DespairUI.getPanel('Scene').dispatchEvent(new PanelEvent(SceneUIState.GAME_START))
@@ -132,5 +152,6 @@ package states.activity
 				PlayerManager.getInstance().nextRound()
 			}
 		}
+
 	}
 }

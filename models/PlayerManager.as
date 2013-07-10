@@ -55,14 +55,33 @@ package models
 			return mPlayer
 		}
 		
-		public function nextRound(direct:Boolean = false):void
+		public function sortedHeroList() : void
 		{
-			// 实时记录 !!
-			CookieManager.flush()
-				
+			heroList.sortOn('score', Array.NUMERIC | Array.DESCENDING)
+			// 最多99条记录
+			if(heroList.length > 99)
+			{
+				heroList.length = 99
+			}
+		}
+		
+		public var heroList:Array = []
+			
+		public function nextRound(direct:Boolean = false):void
+		{	
 			if(direct)
 			{
-				DespairUI.getPanel('Dice').popup(-1,false)
+				// 破产判断
+				if(mPlayer.money.value < 10000)
+				{
+					DespairUI.getPanel('End').popup(-1,true,[1])
+					CookieManager.clear()
+				}
+				// 掷骰子
+				else
+				{
+					DespairUI.getPanel('Dice').popup(-1,false)
+				}
 			}
 			
 			// 判断阶段性事件
@@ -74,11 +93,20 @@ package models
 				{
 					EventsManager.getInstance().startPhaseEvent()
 				}
+				// 破产判断
+				if(mPlayer.money.value < 10000)
+				{
+					DespairUI.getPanel('End').popup(-1,true,[1])
+					CookieManager.clear()
+				}
+				// 掷骰子
 				else
 				{
 					DespairUI.getPanel('Dice').popup(-1,false)
 				}
 			}
+			// 实时记录 !!
+			CookieManager.flush()
 		}
 		
 		private function initializeUserData():void
@@ -133,7 +161,7 @@ package models
 			result.push(ArrayUtil.pullRandom(listT))
 			return result
 		}
-
+		
 	
 		///////////////////////////////////////////////////////////////
 		
@@ -143,7 +171,7 @@ package models
 		private var mUserDataGroupList:Array
 		
 		private var mCoffeeInfoList:Array = []
-		
+
 		
 		///////////////////////////////////////////////////////////////
 		
