@@ -141,6 +141,7 @@ package states.activity
 			{
 				DespairUI.getPanel('End').popup(-1,true,[code])
 				CookieManager.clear()
+				PlayerManager.getInstance().player.path.gotoNodeAt(0)
 				return
 			}
 			if(PlayerManager.getInstance().player.remainStep > 0)

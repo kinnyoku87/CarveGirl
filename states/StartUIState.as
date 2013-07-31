@@ -75,7 +75,7 @@ package states
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				trace('resume')
-				PlayerManager.getInstance().player.setData(CookieManager.cookie.userData)
+				
 				
 				for(var k:* in CookieManager.cookie.userData)
 				{
@@ -125,6 +125,7 @@ package states
 		{
 			if(CookieManager.cookie.size > 0)
 			{
+				PlayerManager.getInstance().player.setData(CookieManager.cookie.userData)
 				DespairUI.getPanel('Start').close()
 				DespairUI.getPanel('Bg').popup()
 				DespairUI.getPanel('Scene').popup()

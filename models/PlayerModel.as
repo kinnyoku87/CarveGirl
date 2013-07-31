@@ -136,6 +136,11 @@ package models
 			
 			else
 			{
+				mStrategy.value = 3
+				mProduct.value = 3
+				mSkill.value = 3
+				mBusiness.value = 3
+				
 				var l:int = 8
 				var R:Number
 				while(--l>-1)

@@ -10,9 +10,11 @@ package states.activity
 	import flash.text.TextFormat;
 	
 	import carveGirlAssets.SWFAssets;
+	import carveGirlAssets.SoundAssets;
 	
 	import models.PlayerManager;
 	
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.resource.LoaderManager;
 	import org.despair2D.ui.Button;
 	import org.despair2D.ui.ButtonType;
@@ -46,6 +48,10 @@ package states.activity
 			
 			btn = new Button('coffee_ok_btn')
 			this.fusion.addElement(btn, 354, 535.1)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('CoffeeC').close()
@@ -54,6 +60,10 @@ package states.activity
 			
 			btn = new Button('coffee_close_btn')
 			this.fusion.addElement(btn, 677.5, 30.5)
+			btn.addEventListener(ManipulateEvent.PRESS, function(e:ManipulateEvent):void
+			{
+				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
+			})
 			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
 			{
 				DespairUI.getPanel('CoffeeC').close()

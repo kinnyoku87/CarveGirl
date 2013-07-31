@@ -118,7 +118,7 @@ package states.activity
 			DespairUI.getPanel('UserA').close()
 			
 			// 成功
-			if(Math.random() < 0.9)
+			if(Math.random() < 0.7)
 			{
 				DespairUI.getPanel('UserE').popup(-1,true,stateArgs)
 					

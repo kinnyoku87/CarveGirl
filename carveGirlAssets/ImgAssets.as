@@ -26,5 +26,11 @@ package carveGirlAssets
 		
 		[Embed(source="images/roles/female.png")]
 		public static var IMG_female:Class
+		
+		
+		// Text
+		[Embed(source="images/scene/text.png")]
+		public static var IMG_text:Class
+		
 	}
 }

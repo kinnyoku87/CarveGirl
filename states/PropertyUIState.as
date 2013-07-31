@@ -40,6 +40,8 @@ package states
 			mc.y = 40
 			this.fusion.addElement(doc)
 			
+//			PlayerManager.getInstance().player.path.gotoNodeAt(0)
+//			PlayerManager.getInstance().player.round.value = 1
 			PlayerManager.getInstance().player.money.binding(__onBindingE,true)
 			PlayerManager.getInstance().player.strategy.binding(__onBindingA,true)
 			PlayerManager.getInstance().player.product.binding(__onBindingB,true)
@@ -51,7 +53,7 @@ package states
 			doc = new DisplayObjectContainerPuppet()
 			mcB = getInstance('leftPanelB') as MovieClip	
 			doc.addChild(mcB)
-			mcB.playerName.text = PlayerManager.getInstance().player.name
+			mcB.playerName.text = (PlayerManager.getInstance().player.name) ? (PlayerManager.getInstance().player.name) : '???'
 			mcB.year.text = PlayerManager.getInstance().player.round
 			FA.addElement(doc)
 			PlayerManager.getInstance().player.round.binding(__onBindingRound)

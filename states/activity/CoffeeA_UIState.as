@@ -29,6 +29,7 @@ package states.activity
 			var index:int
 			var R:int
 			
+				
 			doc = new DisplayObjectContainerPuppet()
 			mc = getInstance('coffee_panel_A') as MovieClip
 			doc.addChild(mc)

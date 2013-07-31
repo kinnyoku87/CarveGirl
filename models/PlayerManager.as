@@ -1,8 +1,10 @@
 package models
 {
 	import carveGirlAssets.DataAssets;
+	import carveGirlAssets.SoundAssets;
 	
 	import org.despair2D.debug.Logger;
+	import org.despair2D.media.SfxManager;
 	import org.despair2D.model.IntProperty;
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.events.PanelEvent;
@@ -33,9 +35,9 @@ package models
 		// 6:意外
 		// 7:公园
 		public static const pathUserData:Array = [0, 1, 3, 5, 6, 2, 7, 4, 3, 6,
-												1, 3, 6, 2, 4, 5, 1, 3, 6, 2,
-												4, 6, 1, 3, 7, 4, 2, 1, 6, 2,
-												3, 5, 4, 1, 7, 6, 2, 4]
+												1, 3, 6, 2, 4, 5, 6, 1, 2, 6,
+												3, 4, 6, 1, 7, 6, 6, 4, 6, 2,
+												3, 5, 6, 1, 7, 6, 2, 4]
 		// 阶段性事件步数间隔
 		public static const PHASE_INTERVAL:int = 12
 		
@@ -75,7 +77,10 @@ package models
 				if(mPlayer.money.value < 10000)
 				{
 					DespairUI.getPanel('End').popup(-1,true,[1])
-					CookieManager.clear()
+					//CookieManager.clear()
+					
+					SfxManager.getInstance().play(SoundAssets.SN_popupp, 1, 1, true)
+						
 				}
 				// 掷骰子
 				else
@@ -92,12 +97,14 @@ package models
 				if((mPlayer.motionCount % PHASE_INTERVAL) == 0)
 				{
 					EventsManager.getInstance().startPhaseEvent()
+					SfxManager.getInstance().play(SoundAssets.SN_popupp, 1, 1, true)
 				}
 				// 破产判断
-				if(mPlayer.money.value < 10000)
+				else if(mPlayer.money.value < 10000)
 				{
 					DespairUI.getPanel('End').popup(-1,true,[1])
-					CookieManager.clear()
+					SfxManager.getInstance().play(SoundAssets.SN_popupp, 1, 1, true)
+					//CookieManager.clear()
 				}
 				// 掷骰子
 				else
@@ -226,6 +233,7 @@ package models
 			{
 				DespairUI.getPanel('Park').popup(-1,false)
 			}
+			SfxManager.getInstance().play(SoundAssets.SN_popupp, 1, 1, true)
 		}
 		
 		// 1:儿童用户

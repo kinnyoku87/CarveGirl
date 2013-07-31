@@ -11,6 +11,7 @@ package states
 	import carveGirlAssets.SWFAssets;
 	import carveGirlAssets.SoundAssets;
 	
+	import models.CookieManager;
 	import models.PlayerManager;
 	
 	import org.despair2D.Despair;
@@ -23,6 +24,7 @@ package states
 	import org.despair2D.ui.DespairUI;
 	import org.despair2D.ui.UIState;
 	import org.despair2D.ui.events.ManipulateEvent;
+	import org.despair2D.ui.events.PanelEvent;
 	import org.despair2D.ui.puppet.DisplayObjectContainerPuppet;
 	import org.despair2D.ui.puppet.InputTextPuppet;
 	import org.despair2D.ui.puppet.LabelPuppet;
@@ -37,7 +39,7 @@ package states
 			var btn:Button
 			var checkBoxA:CheckBox, checkBoxB:CheckBox
 			var input:InputTextPuppet
-			
+	
 			doc = new DisplayObjectContainerPuppet
 			
 			mBg = getInstance('SWF_enter_BgA') as MovieClip
@@ -70,7 +72,8 @@ package states
 			})
 			
 			input = new InputTextPuppet(150,26)
-			//input.backgroundColor = 0xFFFFFF
+			input.color = 0xFFFFFF
+//			input.backgroundColor = 0xFFFFFF
 			input.maxChars = 6
 			input.size = 20
 			this.fusion.addElement(input, 255,140)
@@ -115,14 +118,26 @@ package states
 			{
 				SfxManager.getInstance().play(SoundAssets.SN_tap, 1, 1, true)
 			})
+			btn.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void
+			{
+				DespairUI.getPanel('Hero').popup()
+			})
 			
 			this.fusion.x = (DespairUI.screenWidth - this.fusion.width) / 2 /// DespairUI.pixelRatio
 			this.fusion.y = (DespairUI.screenHeight - this.fusion.height) / 2 /// DespairUI.pixelRatio
+			
+			CookieManager.clear()
+			PlayerManager.getInstance().player.path.gotoNodeAt(0)
+			PlayerManager.getInstance().player.round.value = 1
 				
+			DespairUI.getPanel('Hero').addEventListener(PanelEvent.POPUP, onPopup)
+			DespairUI.getPanel('Hero').addEventListener(PanelEvent.CLOSE, onClose)	
 		}
 		
 		override public function exit():void
 		{
+			DespairUI.getPanel('Hero').removeEventListener(PanelEvent.POPUP, onPopup)
+			DespairUI.getPanel('Hero').removeEventListener(PanelEvent.CLOSE, onClose)
 			mBg = null
 			mPrompt = null
 		}
@@ -143,6 +158,16 @@ package states
 			DespairUI.getPanel('Introduce').popup()
 				
 //			DespairUI.getPanel('Origin').popup()
+		}
+		
+		private function onPopup(e:PanelEvent):void
+		{
+			this.fusion.visible = false
+		}
+		
+		private function onClose(e:PanelEvent):void
+		{
+			this.fusion.visible = true
 		}
 	}
 }
