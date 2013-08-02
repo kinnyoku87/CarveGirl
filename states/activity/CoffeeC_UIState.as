@@ -122,6 +122,7 @@ package states.activity
 		override public function exit():void
 		{
 			TweenLite.killTweensOf(pane)
+			pane.vertiRatio = 0
 			pane = null
 			mStateArgs = null
 		}

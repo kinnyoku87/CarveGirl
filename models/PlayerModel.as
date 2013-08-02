@@ -20,7 +20,30 @@ package models
 			// 导入路径数据
 			mPath.fromByteArray(new (DataAssets.DATA_path))
 			mPath.looped = true
+				
+			mStrategy.binding(function():void{
+				if(mStrategy.value < 0){
+					mStrategy.value = 0
+				}
+			}, false, 100)
+			mProduct.binding(function():void{
+				if(mProduct.value < 0){
+					mProduct.value = 0
+				}
+			}, false, 100)
+			mSkill.binding(function():void{
+				if(mSkill.value < 0){
+					mSkill.value = 0
+				}
+			}, false, 100)
+			mBusiness.binding(function():void{
+				if(mBusiness.value < 0){
+					mBusiness.value = 0
+				}
+			}, false, 100)
 		}
+		
+		
 		
 		
 		public static const USER_TOTAL:int = 538000000
@@ -56,6 +79,7 @@ package models
 		
 		// 等级列表
 		public function get levelList():Array { return mLevelList }
+		public function set levelList( v:Array ) : void { mLevelList = v }
 		
 		public var motionCount:int
 		
@@ -195,10 +219,10 @@ package models
 			var c:Number
 			
 			AY = lvlList ? lvlList : mLevelList
-			a = this.getUserTotalByLevel(AY[1]) * 0.3 
-			b = this.getUserTotalByLevel(AY[2]) * 0.5
-			c = this.getUserTotalByLevel(AY[3]) * 0.05
-			return (a + b + c) * mStrategy.value * MathUtil.getRandomBetween(0.8,1.2) / 1000
+			a = this.getUserByLevel(AY[1]) * 8973840 // 0.3 
+			b = this.getUserByLevel(AY[2]) * 4035000 // 0.5
+			c = this.getUserByLevel(AY[3]) * 153330 // 0.05
+			return (a + b + c) * MathUtil.getRandomBetween(0.8,1.2)// * mStrategy.value / 1000
 		}
 		
 		// 支出
@@ -207,7 +231,9 @@ package models
 			var numEmployee:int
 			
 			numEmployee = Math.round(mProduct.value / 10 + mSkill.value / 4 + mBusiness.value / 12)
-			return (mStrategy.value * 1500 * numEmployee) + int(MathUtil.getRandomBetween(5000, 30000))
+//			return (mStrategy.value * 1500 * numEmployee) + int(MathUtil.getRandomBetween(5000, 30000))
+//			return mStrategy.value * numEmployee * int(MathUtil.getRandomBetween(3000, 5000)) + int(MathUtil.getRandomBetween(5000, 40000))
+			return mStrategy.value / 10 * numEmployee * 4000 * MathUtil.getRandomBetween(.8, 1.2)
 		}
 		
 		// 总分
@@ -284,6 +310,23 @@ package models
 		//////////////////////////////////////////////////////////////////////
 			
 			
+		private function getUserByLevel( level:int ) : Number
+		{
+			if(level == 0)
+			{
+				return 0
+			}
+			else if(level == 1)
+			{
+				return .01 //0.5 * USER_TOTAL * 0.556 
+			}			
+			else if(level == 2)
+			{
+				return .01 + .05 //0.75 * USER_TOTAL * 0.375
+			}
+			return .01 + .05 + .6 //1 * USER_TOTAL * 0.057
+		}
+		
 			
 		private function getUserTotalByLevel( level:int ) : Number
 		{

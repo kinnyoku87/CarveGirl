@@ -167,6 +167,10 @@ package models
 			Logger.reportMessage('PHASE', '获取Phase事件，id(' + mCurrPhase + ')')
 		}
 		
+		public function reset():void{
+			mNumFinishedEnsureEvents = mCurrPhase = 0
+		}
+		
 		
 		private var mEnsureEventList:Array = []
 			

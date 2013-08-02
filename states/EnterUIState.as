@@ -12,6 +12,7 @@ package states
 	import carveGirlAssets.SoundAssets;
 	
 	import models.CookieManager;
+	import models.EventsManager;
 	import models.PlayerManager;
 	
 	import org.despair2D.Despair;
@@ -48,6 +49,10 @@ package states
 				
 			PlayerManager.getInstance().player.money.value = 100000
 			PlayerManager.getInstance().player.sex = 1
+			PlayerManager.getInstance().player.motionCount = 0
+			PlayerManager.getInstance().player.remainStep = 0
+			PlayerManager.getInstance().player.levelList = [0,0,0,0]
+			EventsManager.getInstance().reset()
 			checkBoxA = new CheckBox('SWF_enter_checkBox', true)
 			this.fusion.addElement(checkBoxA, 326, 205)
 			checkBoxA.addEventListener(ManipulateEvent.CLICK, function(e:ManipulateEvent):void

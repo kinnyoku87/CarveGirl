@@ -8,13 +8,13 @@
     <ensureEvent>
     	<id>1</id>
 	    <event>
-	        <strategy>5</strategy>
-	        <product>8</product>
+	        <strategy>4</strategy>
+	        <product>6</product>
 	        <desc>从自己的擅长领域中，挖掘出了创业方向！
 最好的创业点子有个共性：都是创始人自己想做并有能力实现的，且很少有人意识到其价值。当今的巨鳄们如微软、苹果、雅虎、谷歌和Facebook都是凭借这样的好点子起家的。</desc>
  		</event>
      	 <event>
-	        <strategy>3</strategy>
+	        <strategy>2</strategy>
 	        <product>-4</product>
 	        <desc>从一个新领域开始创业！
 最好的创业点子有个共性：都是创始人自己想做并有能力实现的，且很少有人意识到其价值。当今的巨鳄们如微软、苹果、雅虎、谷歌和Facebook都是凭借这样的好点子起家的。</desc>
@@ -41,8 +41,8 @@
 	<ensureEvent>
 		<id>3</id>
 	    <event>
-	        <strategy>5</strategy>
-	        <product>3</product>
+	        <strategy>3</strategy>
+	        <product>4</product>
 	        <desc>给公司想到一个好名字！
 社交游戏平台 Hayzap 的联合创始人 Jude Gomila 分享他给 Hayzap 取名时用的一些原则：
 抽象，联想的魔力，视觉化，要注意发音，独创性，域名，与logo的配合</desc>
@@ -66,16 +66,16 @@
 	<ensureEvent>
         <id>4</id>
         <event>
-	        <strategy>8</strategy>
+	        <strategy>4</strategy>
 	        <business>5</business>
-			<money>-80000</money>
+			<money>-40000</money>
 	        <desc>在热闹商圈租赁了办公室！
 创业办公场地靠近都市重点商圈，一方面可以利用商圈里的的各种商业资源给企业的发展创造机会和条件，另一方面让客户更容易找到办公地址，提高公司在客户心中的认可度。</desc>
    		</event>
 		
    		<event>
-	        <strategy>5</strategy>
-			<money>-50000</money>
+	        <strategy>3</strategy>
+			<money>-20000</money>
 	        <desc>与其它公司合租了办公楼！
 对于初创企业来说，租一整套办公套间性价比太低。可寻找同样需求的公司合租，按照约定分摊开支，同时各自在划定区域开展业务，这样既可降低租赁办公场地的开支，还可让实现资源利用的最优化配置。</desc>
     	</event>

@@ -27,13 +27,13 @@
 			<money>20000</money>
 		</low>
 		<medium>
-			<product>16</product>
+			<product>20</product>
 			<skill>24</skill>
-			<money>100000</money>
+			<money>80000</money>
 		</medium>
 		<high>
-			<product>36</product>
-			<business>48</business>
+			<product>48</product>
+			<business>56</business>
 			<money>300000</money>
 		</high>
 	</young>
@@ -43,7 +43,7 @@
 		<low>
 			<product>12</product>
 			<business>4</business>
-			<money>30000</money>
+			<money>20000</money>
 		</low>
 		<medium>
 			<product>24</product>
@@ -51,9 +51,9 @@
 			<money>120000</money>
 		</medium>
 		<high>
-			<product>48</product>
-			<skill>36</skill>
-			<money>350000</money>
+			<product>56</product>
+			<skill>64</skill>
+			<money>500000</money>
 		</high>
 	</grown>
 	
@@ -70,8 +70,8 @@
 			<money>100000</money>
 		</medium>
 		<high>
-			<product>60</product>
-			<skill>24</skill>
+			<product>64</product>
+			<skill>48</skill>
 			<money>350000</money>
 		</high>
 	</senile>

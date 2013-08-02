@@ -5,7 +5,7 @@
 	<event>
 		<id>1</id>
 		<type>news</type>
-		<strategy>8</strategy>
+		<strategy>4</strategy>
 		<product>3</product>
 		<skill>1</skill>
 		<business>2</business>
@@ -27,8 +27,8 @@
 		<id>2</id>
 		<type>news</type>
 		<product>3</product>
-		<skill>5</skill>
 		<business>8</business>
+		<money>100000</money>
 		<desc>第一版产品完成！
 	与刚成立的团队成员没日没夜，一鼓作气，在2个月内拼出了第一版产品！
 		</desc>
@@ -37,14 +37,14 @@
 	<event>
 		<id>3</id>
 		<type>feedback</type>
-		<money>10000</money>
+		<money>100000</money>
 		<desc>有著名天使投资人看到你们的潜力，想投资你的公司！</desc>
 	</event>
 
 	<event>
 		<id>3</id>
 		<type>feedback</type>
-		<money>-1</money>
+		<strategy>-6</strategy>
 		<desc>将商业计划书投递给了许多天使投资人，但杳无回音…</desc>
 	</event>
 
@@ -127,14 +127,14 @@
 	<event>
 		<id>8</id>
 		<type>feedback</type>
-		<money>800000</money>
+		<money>1000000</money>
 		<desc>有著名投资人看好你们公司的发展，想投资你的公司！</desc>
 	</event>
 
 	<event>
 		<id>8</id>
 		<type>feedback</type>
-		<money>-1</money>
+		<strategy>-6</strategy>
 		<desc>与著名投资人交流产品，被指出了产品设计、规划中的多处硬伤…</desc>
 	</event>
 
@@ -162,7 +162,7 @@
 		<id>10</id>
 		<type>news</type>
 		<strategy>6</strategy>
-		<money>80000</money>
+		<money>200000</money>
 		<desc>公司发现了潜在的盈利机会！</desc>
 	</event>
 
